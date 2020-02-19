@@ -1,0 +1,73 @@
+<link href="/css/login.css" rel="stylesheet" />
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous"
+/>
+<body>
+  <div class="container-fluid p-0 m-0 ">
+    <div class="row h-100 p-0 m-0">
+      <div class="col p-0 m-0">
+        <img class="img-fluid h-100" src="/images/sunset.jpg" />
+      </div>
+      <div class="col pt-5">
+        <div class="form pl-5 mw-75">
+          <p class="display-3">Passport Template</p>
+          <form method="POST" action="/create-account">
+            <% if(message){ %>
+            <div
+              class="alert alert-danger alert-dismissible fade show w-75 p-2 "
+              role="alert"
+            >
+              <%= message %>
+            </div>
+            <% }%>
+            <div class="form-group">
+              <label for="Email">Email address</label>
+              <input
+                name="username"
+                type="email"
+                class="form-control w-75"
+                id="Email"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >We'll never share your email with anyone else.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="Password">Password</label>
+              <input
+                name="password"
+                type="password"
+                class="form-control w-75"
+                id="Password"
+                placeholder="Password"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >Password length must be 5-15 and contain numbers and both
+                uppercase and lowercase characters.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="VerifyPassword">Verify Password</label>
+              <input
+                name="verifyPassword"
+                type="password"
+                class="form-control w-75"
+                id="VerifyPassword"
+                placeholder="Password"
+              />
+            </div>
+            <button type="submit" class=" btn btn-dark ">
+              Create My Account
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <%- include("partials/footer.ejs") -%> -->

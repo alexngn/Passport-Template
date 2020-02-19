@@ -1,0 +1,47 @@
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+  crossorigin="anonymous"
+/>
+
+<% if(Authenticated){ %>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark clearfix">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand  text-white" href="#">Passport Template</a>
+    </div>
+    <div class="float-right">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Page 3</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<%} else {%>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark clearfix">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand  text-white" href="#">Passport Template</a>
+    </div>
+    <div class="float-right">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/create-account">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Page 3</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<% } %>
