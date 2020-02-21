@@ -9,5 +9,5 @@ const mongoose = require("./setup/mongooseSetup");
 app.set("view engine", "ejs");
 
 app.listen(keys.PORT, "127.0.0.1", () => {
-  console.log(`Listening on Port ${keys.PORT}`);
+	console.log(`Listening on Port ${keys.PORT}`);
 });
