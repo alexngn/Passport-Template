@@ -8,32 +8,33 @@ const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 // const keys = require("../config/keys");
 const User = require("../models/user");
 passport.use(
-	new LocalStrategy(function(username, password, done) {
-		console.log("called");
-		User.findOne({ username: username }, async function(err, user) {
-			if (err) {
-				return done(err);
-			}
-			if (!user) {
-				return done(null, false);
-			}
+  new LocalStrategy(function(username, password, done) {
+    console.log("called");
+    User.findOne({ username: username }, async function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false);
+      }
 
-			const hash = user.password;
-			bcrypt.compare(password, hash, function(err, result) {
-				if (err) {
-					return done(err);
-				}
-				if (!result) {
-					return done(null, false);
-				}
-			});
+      const hash = user.password;
+      bcrypt.compare(password, hash, function(err, result) {
+        if (err) {
+          return done(err);
+        }
+        if (!result) {
+          return done(null, false);
+        }
+      });
 
-			if (!user.verifyPassword(hash)) {
-				return done(null, false);
-			}
-			return done(null, user);
-		});
-	})
+      if (!user.verifyPassword(hash)) {
+        return done(null, false);
+      }
+      console.log("No errors");
+      return done(null, user);
+    });
+  })
 );
 
 // passport.use(
@@ -103,13 +104,13 @@ passport.use(
 // );
 
 passport.serializeUser(async function(user, done) {
-	done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-	User.findById(id, function(err, user) {
-		done(err, user);
-	});
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 module.exports = passport;

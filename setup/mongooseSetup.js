@@ -6,8 +6,9 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true
   },
-  () => {
-    console.log("MongoDB connected");
+  err => {
+    if (err) console.log(err);
+    else console.log("MongoDB connected");
   }
 );
 
