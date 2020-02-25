@@ -7,4 +7,10 @@ module.exports = function(app) {
       changeOrigin: true
     })
   );
+  app.use(
+    createProxyMiddleware("/api/logout", {
+      target: "http://localhost:3001/",
+      changeOrigin: true
+    })
+  );
 };

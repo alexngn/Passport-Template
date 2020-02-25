@@ -1,6 +1,6 @@
 import React from "react";
 import LoginTemplate from "./LoginTemplate";
-
+import TitlePhoto from "./CreateAccount/TitlePhoto";
 function renderForm() {
   return (
     <form method="POST" action="/create-account">
@@ -48,23 +48,10 @@ function renderForm() {
     </form>
   );
 }
-
-function renderPhoto() {
-  return (
-    <div className="col p-0 m-0">
-      <img
-        className="img-fluid vh-100"
-        alt="Passport-Login"
-        src="/sunset.jpg"
-      />
-    </div>
-  );
-}
-
 const CreateAccount = () => {
   return (
     <LoginTemplate
-      photo={renderPhoto}
+      photo={<TitlePhoto />}
       form={renderForm}
       socialMedia={() => {}}
     />

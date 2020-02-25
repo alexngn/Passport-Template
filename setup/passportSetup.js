@@ -19,14 +19,14 @@ passport.use(
       }
 
       const hash = user.password;
-      bcrypt.compare(password, hash, function(err, result) {
-        if (err) {
-          return done(err);
-        }
-        if (!result) {
-          return done(null, false);
-        }
-      });
+      console.log("the hash is", hash, " the password is", password);
+
+      const match = await bcrypt.compare(password, hash);
+
+      if (!match) {
+        console.log("no result called");
+        return done(null, false);
+      }
 
       if (!user.verifyPassword(hash)) {
         return done(null, false);

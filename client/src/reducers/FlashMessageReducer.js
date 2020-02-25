@@ -2,7 +2,7 @@ const INITIAL_STATE = [];
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "ADD_FLASH_MESSAGE":
+    case "ADD_FLASH_MESSAGE": {
       return [
         ...state,
         {
@@ -10,7 +10,13 @@ export default (state = INITIAL_STATE, action) => {
           text: action.message.text
         }
       ];
-    default:
+    }
+    case "CLEAR_FLASH_MESSAGE": {
+      console.log("After clear flash message", state);
+      return [];
+    }
+    default: {
       return state;
+    }
   }
 };

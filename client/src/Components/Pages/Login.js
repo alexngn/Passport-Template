@@ -3,10 +3,18 @@ import { Field, reduxForm } from "redux-form";
 import LoginTemplate from "./LoginTemplate";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import addFlashMessage from "../actions/FlashMessage.js";
+import {
+  ADD_FLASH_MESSAGE,
+  CLEAR_FLASH_MESSAGE
+} from "../actions/FlashMessage.js";
 import { connect } from "react-redux";
 
-const Login = ({ handleSubmit, history, addFlashMessage }) => {
+const Login = ({
+  handleSubmit,
+  history,
+  ADD_FLASH_MESSAGE,
+  CLEAR_FLASH_MESSAGE
+}) => {
   function renderEmailInput({ input, label, meta }) {
     return (
       <div className="form-group">
@@ -34,23 +42,29 @@ const Login = ({ handleSubmit, history, addFlashMessage }) => {
     );
   }
 
-  async function onSubmit(formData) {
+  async function OnSubmit(formData) {
     console.log("handled!");
-    console.log(formData);
     const response = await axios.post("http://localhost:3001/login", formData);
-    addFlashMessage({
-      type: "success",
-      text: "successfully logged in"
-    });
-    console.log(response);
-    console.log(typeof history);
-    console.log(history);
-    history.push("/");
+    console.log("THE RESPONSE IS", response.data);
+    CLEAR_FLASH_MESSAGE();
+    if (response.data != "") {
+      ADD_FLASH_MESSAGE({
+        text: "Logged In",
+        type: "Success"
+      });
+      history.push("/");
+    } else {
+      ADD_FLASH_MESSAGE({
+        text: "Incorrect username or password",
+        type: "Failure"
+      });
+      history.push("/login");
+    }
   }
 
   function renderForm(handleSubmit) {
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(OnSubmit)}>
         <Field
           name="username"
           label="Email address"
@@ -71,51 +85,10 @@ const Login = ({ handleSubmit, history, addFlashMessage }) => {
     );
   }
 
-  function renderSocialMedia() {
-    return (
-      <>
-        <p>Or sign in with social media below</p>
-        <a className="px-3 mr-3 ui red google button" href="/auth/google">
-          <i className="google icon" />
-          Google
-        </a>
-        <a
-          className="px-auto mr-3 mb-3 ui facebook button"
-          href="/auth/facebook"
-        >
-          <i className="facebook icon"></i>
-          Facebook
-        </a>
-        <a className="px-auto mr-3 ui linkedin button" href="/auth/linkedin">
-          <i className="linkedin icon" />
-          LinkedIn
-        </a>
-        <a className="px-auto mr-3 ui twitter button" href="/auth/twitter">
-          <i className="twitter icon" />
-          Twitter
-        </a>
-      </>
-    );
-  }
-
-  function renderPhoto() {
-    return (
-      <div className="col p-0 m-0">
-        <img className="img-fluid vh-100" alt="" src="/sunset.jpg" />
-      </div>
-    );
-  }
-
-  return (
-    <LoginTemplate
-      photo={renderPhoto}
-      form={renderForm.bind(this, handleSubmit)}
-      socialMedia={renderSocialMedia}
-    />
-  );
+  return <LoginTemplate form={renderForm.bind(this, handleSubmit)} />;
 };
 
-export default connect(null, { addFlashMessage })(
+export default connect(null, { ADD_FLASH_MESSAGE, CLEAR_FLASH_MESSAGE })(
   withRouter(
     reduxForm({
       form: "form"
