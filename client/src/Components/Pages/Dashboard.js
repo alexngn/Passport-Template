@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import Header from "../Partials/Header";
+import Header from "../partials/header";
 import { connect } from "react-redux";
-import { CLEAR_FLASH_MESSAGE } from "../actions/FlashMessage";
-import FlashMessagesList from "../Flash/FlashMessagesList";
-import axios from "axios";
+import { CLEAR_FLASH_MESSAGE } from "../actions/flashMessage";
+import FlashMessagesList from "../flash/flashMessagesList";
+
 class Dashboard extends Component {
   componentDidMount() {
     console.log("Mounted!");
   }
   componentWillUnmount() {
-    console.log("Home unmounte");
     this.props.CLEAR_FLASH_MESSAGE();
+    console.log("Home unmounte");
   }
   render() {
     return (
@@ -19,9 +19,6 @@ class Dashboard extends Component {
         <div className="container">
           <FlashMessagesList />
           <div className="mt-3">This is the home page</div>
-          <button onClick={() => axios.get("http://localhost:3001/logout")}>
-            Logout
-          </button>
         </div>
       </>
     );

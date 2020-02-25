@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import FlashMessagesList from "../Flash/FlashMessagesList";
-import SocialMediaButtons from "./CreateAccount/SocialMediaButtons";
-import TitlePhoto from "./CreateAccount/TitlePhoto";
+import FlashMessagesList from "../flash/flashMessagesList";
+import SocialMediaButtons from "./createAccount/socialMediaButtons";
+import TitlePhoto from "./createAccount/titlePhoto";
+
 const LoginTemplate = props => {
   return (
     <div className="container-fluid p-0 m-0 ">

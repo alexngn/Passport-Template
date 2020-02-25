@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import FlashMessage from "./FlashMessage.js";
 import { connect } from "react-redux";
-import { CLEAR_FLASH_MESSAGE } from "../actions/FlashMessage";
+import FlashMessage from "./flashMessage.js";
+import { CLEAR_FLASH_MESSAGE } from "../actions/flashMessage";
+
 class FlashMessagesList extends Component {
   constructor(props) {
     super(props);
@@ -13,29 +14,22 @@ class FlashMessagesList extends Component {
       return <FlashMessage key={message.id} message={message} />;
     });
     this.setState({ messages });
-    console.log(messages.length > 0 ? messages[0].props.message : null);
   }
 
   componentDidMount() {
     this.setMessages();
-    this.props.CLEAR_FLASH_MESSAGE();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps);
-    console.log(this.props);
+  componentDidUpdate(prevProps) {
     if (this.props.messages.length > 0) {
-      if (prevProps.messages != this.props.messages) {
-        console.log("update called");
+      if (prevProps.messages !== this.props.messages) {
         this.setMessages();
       }
-    }
-  }
-
-  componentWillUnmount() {
-    console.log("unmounted!");
-    // CLEAR_FLASH_MESSAGE();
-    this.setState({});
+    } else if (
+      this.props.messages.length == 0 &&
+      prevProps.messages.length != 0
+    )
+      this.setState({ messages: null });
   }
 
   render() {

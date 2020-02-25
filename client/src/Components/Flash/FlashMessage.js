@@ -6,7 +6,7 @@ class FlashMessage extends Component {
     return (
       <div
         className={`alert alert-${
-          type == "Failure" ? "danger" : "success"
+          type === "Failure" ? "danger" : "success"
         } mt-2`}
       >
         {text}

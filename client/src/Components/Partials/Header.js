@@ -1,6 +1,42 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginContext } from "../../context/login-context";
+import { CLEAR_FLASH_MESSAGE } from "../actions/flashMessage";
+
 class Header extends Component {
+  loggedOutNav = (
+    <ul className="navbar-nav mr-auto">
+      <li className="nav-item">
+        <Link className="nav-link text-white" to="/login">
+          Login
+        </Link>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link text-white" href="/create-account">
+          Sign Up
+        </a>
+      </li>
+    </ul>
+  );
+
+  loggedInNav = (
+    <ul className="navbar-nav mr-auto">
+      <li className="nav-item">
+        <Link
+          className="nav-link text-white"
+          to="/"
+          onClick={() => {
+            this.props.CLEAR_FLASH_MESSAGE();
+            this.context.toggleLogin();
+          }}
+        >
+          Logout
+        </Link>
+      </li>
+    </ul>
+  );
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-dark clearfix">
@@ -11,18 +47,12 @@ class Header extends Component {
             </Link>
           </div>
           <div className="float-right">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link text-white" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/create-account">
-                  Sign Up
-                </a>
-              </li>
-            </ul>
+            <LoginContext.Consumer>
+              {({ user }) => {
+                if (user) return this.loggedInNav;
+                return this.loggedOutNav;
+              }}
+            </LoginContext.Consumer>
           </div>
         </div>
       </nav>
@@ -30,4 +60,6 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.contextType = LoginContext;
+
+export default connect(null, { CLEAR_FLASH_MESSAGE })(Header);

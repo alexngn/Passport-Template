@@ -1,6 +1,6 @@
 import React from "react";
-import LoginTemplate from "./LoginTemplate";
-import TitlePhoto from "./CreateAccount/TitlePhoto";
+import LoginTemplate from "./loginTemplate";
+import TitlePhoto from "./createAccount/titlePhoto";
 function renderForm() {
   return (
     <form method="POST" action="/create-account">
