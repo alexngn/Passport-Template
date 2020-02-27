@@ -33,9 +33,10 @@ function hashPassword(hash, req, res) {
   user.save(() => {
     passport.authenticate("local")(req, res, function() {
       req.flash("login", "Logged In");
-      res.redirect("/");
     });
   });
+
+  res.send(user);
 }
 
 const validations = [
@@ -54,9 +55,7 @@ const validations = [
 router.post("/", validations, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render("createAccount", {
-      message: errors.errors[0].msg
-    });
+    res.send(null);
   } else {
     const hash = await bcrypt.hash(req.body.password, 10);
     hashPassword(hash, req, res);

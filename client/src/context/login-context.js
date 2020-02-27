@@ -1,5 +1,5 @@
 import React from "react";
 export const LoginContext = React.createContext({
-  user: null,
+  user: localStorage.getItem("user"),
   toggleLogin: () => {}
 });

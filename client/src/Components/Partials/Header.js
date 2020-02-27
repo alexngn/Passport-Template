@@ -28,7 +28,7 @@ class Header extends Component {
           to="/"
           onClick={() => {
             this.props.CLEAR_FLASH_MESSAGE();
-            this.context.toggleLogin();
+            this.context.toggleLogin(null);
           }}
         >
           Logout

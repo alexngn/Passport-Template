@@ -10,8 +10,8 @@ class FlashMessagesList extends Component {
   }
 
   setMessages() {
-    let messages = this.props.messages.map(message => {
-      return <FlashMessage key={message.id} message={message} />;
+    let messages = this.props.messages.map((message, index) => {
+      return <FlashMessage key={index} message={message} />;
     });
     this.setState({ messages });
   }
@@ -26,8 +26,8 @@ class FlashMessagesList extends Component {
         this.setMessages();
       }
     } else if (
-      this.props.messages.length == 0 &&
-      prevProps.messages.length != 0
+      this.props.messages.length === 0 &&
+      prevProps.messages.length !== 0
     )
       this.setState({ messages: null });
   }

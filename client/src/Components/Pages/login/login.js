@@ -3,12 +3,12 @@ import { Field, reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
-import LoginTemplate from "./loginTemplate";
-import { LoginContext } from "../../context/login-context";
+import LoginTemplate from "../loginTemplate";
+import { LoginContext } from "../../../context/login-context";
 import {
   ADD_FLASH_MESSAGE,
   CLEAR_FLASH_MESSAGE
-} from "../actions/flashMessage.js";
+} from "../../actions/flashMessage.js";
 
 const Login = ({
   handleSubmit,
@@ -16,7 +16,7 @@ const Login = ({
   ADD_FLASH_MESSAGE,
   CLEAR_FLASH_MESSAGE
 }) => {
-  const toggleLogin = useContext(LoginContext);
+  const context = useContext(LoginContext);
   function renderEmailInput({ input, label, meta }) {
     return (
       <div className="form-group">
@@ -46,15 +46,15 @@ const Login = ({
 
   async function OnSubmit(formData) {
     const response = await axios.post("http://localhost:3001/login", formData);
-    console.log("THE RESPONSE IS", response.data);
+    console.log("THE RESPONSE IS", response.data._id);
     CLEAR_FLASH_MESSAGE();
     if (response.data !== "") {
       ADD_FLASH_MESSAGE({
         text: "Logged In",
         type: "Success"
       });
-      console.log(toggleLogin);
-      toggleLogin.toggleLogin();
+      context.toggleLogin(response.data._id);
+      localStorage.setItem("user", response._id);
       history.push("/");
     } else {
       ADD_FLASH_MESSAGE({

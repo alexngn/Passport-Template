@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
-import CreateAccount from "./pages/createAccount";
-import Login from "./pages/login";
+import CreateAccount from "./pages/createAccount/createAccount";
+import Login from "./pages/login/login";
 import { LoginContext } from "../context/login-context";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.toggleLogin = () => {
-      console.log("STATE CHANGED");
-      this.setState(state => ({
-        user: state.user == null ? true : null
+    this.toggleLogin = user => {
+      console.log("user is ", user);
+      this.setState(() => ({
+        user: user
       }));
+      localStorage.setItem("user", user);
     };
     this.state = {
-      user: null,
+      user: localStorage.getItem("user"),
       toggleLogin: this.toggleLogin
     };
   }
